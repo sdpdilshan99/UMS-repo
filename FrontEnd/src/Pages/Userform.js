@@ -1,4 +1,5 @@
-import { Button, Grid, Input, Typography } from "@mui/material";
+import { Grid, Typography, TextField, Button, Paper } from '@mui/material';
+
 import { useEffect, useState } from "react";
 
 const Userform = ( {addUser, updateUser, submitted, selectedUserData, isEdit} ) => {
@@ -21,86 +22,111 @@ const Userform = ( {addUser, updateUser, submitted, selectedUserData, isEdit} ) 
     }, [selectedUserData]);
 
     return(
-        <Grid
-            container
-            spacing={2}
+        <Paper
             sx={{
+                padding: 3,
+                marginBottom: 4,
                 backgroundColor: '#ffffff',
-                marginBottom: '30px',
-                display: 'block',
+                borderRadius: 3,
+                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                maxWidth: '600px',
+                margin: 'auto',
             }}
         >
-            <Grid item xs={12}>
-                <Typography component={'h1'} sx={{ color: '#000000' }}>User Form</Typography>
-            </Grid>
-            
-            <Grid item xs={12} sm={6} sx={{ display: 'flex' }}>
-                <Typography 
-                    component={'label'} 
-                    htmlFor="id"
-                    sx={{
-                        color: 'black',
-                        marginRight: '20px',
-                        fontSize: '16px',
-                        width: '100px',
-                        display: 'block',
-                    }}
-                >ID</Typography>
-                <Input
-                    type="number"
-                    id="id"
-                    name="id"
-                    sx={{ width: '400px' }}
-                    value={id}
-                    onChange={e => setId(e.target.value)}
+            <Typography variant="h5" component="h1" sx={{ color: '#333', marginBottom: 3 }}>
+                User Form
+            </Typography>
 
-                />
-            </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Typography
+                        component="label"
+                        htmlFor="id"
+                        sx={{
+                            display: 'block',
+                            color: '#555',
+                            marginBottom: 1,
+                            fontSize: '14px',
+                            fontWeight: 400,
+                        }}
+                    >
+                        ID
+                    </Typography>
+                    <TextField
+                        type="number"
+                        id="id"
+                        name="id"
+                        variant="outlined"
+                        fullWidth
+                        value={id}
+                        onChange={e => setId(e.target.value)}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                borderRadius: 2,
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#777',
+                            },
+                        }}
+                    />
+                </Grid>
 
-            <Grid item xs={12} sm={6} sx={{ display: 'flex' }}>
-                <Typography 
-                    component={'label'} 
-                    htmlFor="id"
-                    sx={{
-                        color: 'black',
-                        marginRight: '20px',
-                        fontSize: '16px',
-                        width: '100px',
-                        display: 'block',
-                    }}
-                >Name</Typography>
-                <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    sx={{ width: '400px' }}
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />
+                <Grid item xs={12} sm={6}>
+                    <Typography
+                        component="label"
+                        htmlFor="name"
+                        sx={{
+                            display: 'block',
+                            color: '#555',
+                            marginBottom: 1,
+                            fontSize: '14px',
+                            fontWeight: 400,
+                        }}
+                    >
+                        Name
+                    </Typography>
+                    <TextField
+                        type="text"
+                        id="name"
+                        name="name"
+                        variant="outlined"
+                        fullWidth
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                borderRadius: 2,
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#777',
+                            },
+                        }}
+                    />
+                </Grid>
+
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => isEdit ? updateUser({ id, name }) : addUser({ id, name })}
+                        sx={{
+                            color: '#ffffff',
+                            padding: '10px 20px',
+                            textTransform: 'none',
+                            fontSize: '16px',
+                            borderRadius: 2,
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                            '&:hover': {
+                                backgroundColor: '#1976d2',
+                                boxShadow: '0px 6px 12px rgba(0, 0, 0, 0.15)',
+                            },
+                        }}
+                    >
+                        {isEdit ? 'Update' : 'Add'}
+                    </Button>
+                </Grid>
             </Grid>
-            
-            <Button
-                sx={{
-                    color: 'white',
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    backgroundColor: 'blue',
-                    marginLeft: '15px',
-                    marginTop: '20px',
-                    ':hover':  {
-                        backgroundColor: '#0000ff80',
-                        color: 'black',
-                         
-                    }
-                }}
-                onClick={ () => isEdit ? updateUser( {id, name} ) : addUser( {id, name} ) }
-            >
-                {
-                    isEdit ? 'Update' : 'Add'
-                }
-            </Button>
-            
-        </Grid>
+        </Paper>
 
     );
 }
